@@ -101,8 +101,7 @@ function ModalComponent({ showModal, language, userInfo, typeModal }) {
       name: usName,
       email: usEmail,
       gender: usGender,
-      dob: selectedDate,
-      dob: selectedDate,
+      dob: selectedDate
     }).then((rs) => {
       if (rs) {
         handleCancel();
