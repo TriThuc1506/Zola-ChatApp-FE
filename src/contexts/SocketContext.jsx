@@ -70,6 +70,7 @@ export const SocketContextProvider = ({ children }) => {
       socket.on("leave-group", handleLeaveGroup);
       socket.on("delete-group", handleDeleteGroup);
       socket.on("change-admins", handleChangeAdminGroup);
+      socket.on("member-to-admin", handleMakeMemberToAdmin);
 
       return () => {
         socket.off("force_logout");
@@ -89,7 +90,7 @@ export const SocketContextProvider = ({ children }) => {
         socket.off("leave-group", handleLeaveGroup);
         socket.off("delete-group", handleDeleteGroup);
         socket.off("change-admins", handleChangeAdminGroup);
-
+        socket.off("member-to-admin", handleMakeMemberToAdmin);
       };
     }
   }, [socket, authUser]);
@@ -114,7 +115,7 @@ export const SocketContextProvider = ({ children }) => {
   };
 
   // handle for chat
-  const handleNewMessage = ({message}) => {
+  const handleNewMessage = ({ message }) => {
     setIsNewSocket("new_message");
     setNewSocketData(message);
   };
@@ -138,24 +139,28 @@ export const SocketContextProvider = ({ children }) => {
   const handleUpdateGroup = ({ group }) => {
     setIsNewSocket("update-group");
     setNewSocketData(group);
-  }
+  };
 
   const handleLeaveGroup = ({ group }) => {
     setIsNewSocket("leave-group");
     setNewSocketData(group);
   };
-  
+
   const handleDeleteGroup = ({ group }) => {
     setIsNewSocket("delete-group");
     setNewSocketData(group);
-  }
+  };
 
   const handleChangeAdminGroup = ({ group, members, typeChange }) => {
     setIsNewSocket("change-admins");
     setNewSocketData({ group, members, typeChange });
-  }
+  };
 
-
+  const handleMakeMemberToAdmin = ({ group }) => {
+    console.log("make member to admin", group);
+    setIsNewSocket("member-to-admin");
+    setNewSocketData(group);
+  };
 
   return (
     <SocketContext.Provider
