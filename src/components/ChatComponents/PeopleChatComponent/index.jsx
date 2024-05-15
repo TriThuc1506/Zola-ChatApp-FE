@@ -253,17 +253,19 @@ function PeopleChatComponent({
       }
       if (isNewSocket === "member-to-admin") {
         const group = newSocketData;
-        console.log("group", group);
         if (group?.id === thisUser.id) {
           setThisUser({
             ...thisUser,
             creator: group?.createBy,
             admins: group?.admins,
           });
+
           if (group?.createBy._id === authUser._id) {
             setIsCreator(true);
+            setIsGroupAdmin(true);
           } else {
             setIsCreator(false);
+            setIsGroupAdmin(false);
           }
         }
       }

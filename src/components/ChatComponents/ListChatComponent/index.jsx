@@ -32,11 +32,8 @@ function ListChatComponent({
   const { isNewSocket, newSocketData } = useSocketContext();
   const [searchResult, setSearchResult] = useState([]);
 
-  
-
   useEffect(() => {
     setFriendList(friends);
-
     const listChat = conversations.map((conversation) => {
       const friend = conversation.participants.find(
         (participant) => participant.phone !== authUser.phone
@@ -68,7 +65,6 @@ function ListChatComponent({
   useEffect(() => {
     if (isNewSocket === "new_message") {
       const message = newSocketData;
-      console.log("new_message", message);
       const isExist = listChatCurrent.some(
         (chat) => chat.conversationId === message.conversationId
       );
@@ -149,7 +145,6 @@ function ListChatComponent({
 
     if (isNewSocket === "remove-from-group") {
       const group = newSocketData;
-      console.log("remove-from-group", group);
       if (group.removeMembers?.includes(authUser._id)) {
         if (authUser._id === group.createBy) {
           toast.error(
@@ -243,6 +238,23 @@ function ListChatComponent({
         });
       }
     }
+
+    if (isNewSocket === "member-to-admin") {
+      const group = newSocketData;
+      const index = listChatCurrent.findIndex((chat) => chat.id === group.id);
+      if (index !== -1) {
+        setListChatCurrent((prev) => {
+          const newList = [...prev];
+          newList[index] = {
+            ...newList[index],
+            admins: group.admins,
+            creator: group.createBy,
+          };
+          return newList;
+        });
+      }
+    }
+
   }, [isNewSocket, newSocketData]);
 
   useEffect(() => {
@@ -282,7 +294,6 @@ function ListChatComponent({
       setShowUnread(false);
     }
   };
-  
 
   //Lọc dữ liệu tên bạn bè
   const handleInputChange = (e) => {
@@ -312,7 +323,6 @@ function ListChatComponent({
       const newConversation = await getConversationByParticipants([friend.id]);
       friend.conversationId = newConversation?._id;
     }
-    console.log("friend", friend, "conversation", conversation);
 
     changeUserChat(friend);
   };
@@ -397,7 +407,6 @@ function ListChatComponent({
                     <FaSortDown className="pb-1" size={20} />
                   </button>
                 </div>
-                
               </div>
             </>
           )}
@@ -513,7 +522,7 @@ function ListChatComponent({
                           : language === "vi"
                           ? "Chưa có tin nhắn"
                           : "No message yet"}
-  
+
                         {friend?.unread ? (
                           <span className="text-blue-500"> (1)</span>
                         ) : (
@@ -526,14 +535,11 @@ function ListChatComponent({
                         className="text-sm hover:text-gray-600"
                         style={{ fontSize: 12 }}
                       >
-                        {
-                          timeString
-                        
-                        }
+                        {timeString}
                       </p>
                     </div>
                   </div>
-                )
+                );
               })}
             </div>
           </>
