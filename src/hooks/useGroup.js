@@ -162,6 +162,21 @@ const useGroup = () => {
   const changeAdmins = async (groupId, memberData, typeChange) => {
     setGrLoading(true);
     try {
+      if (typeChange === "makeAdmin") {
+        const response = await axiosInstance.post(
+          "/groups/make-member-to-admin",
+          {
+            userId: memberData,
+            groupId,
+          }
+        );
+        const { data, status } = response;
+        console.log(data, status);
+
+        if (status === 200) {
+          return data;
+        }
+      }
       const response = await axiosInstance.post("/groups/changeAdmins", {
         members: [...memberData],
         typeChange,
