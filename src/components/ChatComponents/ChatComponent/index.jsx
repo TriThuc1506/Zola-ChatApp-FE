@@ -240,9 +240,23 @@ function ChatComponents({ language }) {
           ? "Thêm thành viên vào nhóm thành công"
           : "Add members to group successfully"
       );
+      // const newMembers = 
+      await axiosInstance.post(
+        `chats/${groupToChange}/sendText`,
+        {
+          data: {
+            type: "text",
+            data: `${authUser?.profile?.name} đã thêm ${members[0]?.name} vào nhóm`,
+          },
+          replyMessageId : null,
+          isGroup : true,
+        }
+      );
+      
       rs?.forEach((message) => {
         toast.success(message);
       });
+
     }
   };
 
