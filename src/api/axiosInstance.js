@@ -1,8 +1,7 @@
 import axios from 'axios';
 import config from './config';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// localStorage.clear()
+
 const axiosInstance = axios.create({
   baseURL: config.baseURL,
 });
@@ -12,6 +11,8 @@ axiosInstance.interceptors.request.use(
     const token = JSON.parse(localStorage.getItem("accessToken"));
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+      config.headers['Access-Control-Allow-Origin'] = '*';
+
     }
     return config;
   },
@@ -22,6 +23,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    response.headers['Access-Control-Allow-Origin'] = '*';
     return response;
   },
   async (error) => {

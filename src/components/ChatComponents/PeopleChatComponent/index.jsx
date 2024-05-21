@@ -1781,7 +1781,7 @@ function PeopleChatComponent({
                             </>
                           )}
 
-                          {isGroupAdmin && !memberIsCreator && !isMe && (
+                          {!isMe || isGroupAdmin || !memberIsAdmin &&(
                             <div className="flex items-center ml-5">
                               <button
                                 onClick={() => {
