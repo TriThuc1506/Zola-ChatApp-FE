@@ -112,8 +112,8 @@ function ChatComponents({ language }) {
     });
     // sort list group by last message timestamp
     listGroup.sort((a, b) => {
-      const lastTimeA = new Date(a.lastMessage.timestamp);
-      const lastTimeB = new Date(b.lastMessage.timestamp);
+      const lastTimeA = new Date(a.lastMessage?.timestamp);
+      const lastTimeB = new Date(b.lastMessage?.timestamp);
       return lastTimeB - lastTimeA;
     });
 

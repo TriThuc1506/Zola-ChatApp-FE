@@ -59,8 +59,8 @@ function ListChatComponent({
     });
 
     listChat.sort((a, b) => {
-      const timeA = new Date(a.lastMessage.timestamp);
-      const timeB = new Date(b.lastMessage.timestamp);
+      const timeA = new Date(a.lastMessage?.timestamp);
+      const timeB = new Date(b.lastMessage?.timestamp);
       return timeB - timeA;
     });
 
@@ -82,8 +82,8 @@ function ListChatComponent({
           );
           newList[index].lastMessage = message.retrunMessage;
           newList.sort((a, b) => {
-            const timeA = new Date(a.lastMessage.timestamp);
-            const timeB = new Date(b.lastMessage.timestamp);
+            const timeA = new Date(a.lastMessage?.timestamp);
+            const timeB = new Date(b.lastMessage?.timestamp);
             return timeB - timeA;
           });
           return newList;
