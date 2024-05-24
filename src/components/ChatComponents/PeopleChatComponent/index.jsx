@@ -1020,7 +1020,7 @@ function PeopleChatComponent({
                                 ) : (
                                   <div>
                                     <DocViewer
-                                      documents={{ uri: content.data }}
+                                      documents={[{ uri: content.data }]}
                                       pluginRenderers={DocViewerRenderers}
                                       style={{ height: "400px" }}
                                     />
