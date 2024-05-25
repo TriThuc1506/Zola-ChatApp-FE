@@ -10,12 +10,12 @@ const Login = () => {
     <div className="w-screen h-screen bg-[url('/bg-login.svg')] bg-cover bg-center font-roboto">
       <div className="pt-10">
         <h1 className="text-[#0068ff] text-center font-semibold text-[3.5rem]">
-          ZaloFake
+          ZolaFake
         </h1>
         <p className="text-xl leading-8 text-center whitespace-pre mb-3 text-gray-700">
           {langue == "vi"
-            ? "Đăng nhập tài khoản Zalo \n để kết nối với ứng dụng Zalo Web"
-            : "Sign in to Zalo Fake account \n to connect to Zalo Web Fake"}
+            ? "Đăng nhập tài khoản Zola \n để kết nối với ứng dụng Zola Web"
+            : "Sign in to Zola Fake account \n to connect to Zola Web Fake"}
         </p>
       </div>
       <div className="flex justify-center items-center">
